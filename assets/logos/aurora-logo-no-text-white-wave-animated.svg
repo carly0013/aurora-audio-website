@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="100%"
+  height="100%"
+  viewBox="0 0 5000 4463"
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:serif="http://www.serif.com/"
+  xml:space="preserve"
+  style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"
+>
+  <g id="Artboard1" transform="matrix(1,0,0,1,0,-0.508316)">
+    <rect x="0" y="0.508" width="5000" height="4462.875" style="fill:none;"/>
+    <clipPath id="_clip1">
+      <rect x="0" y="0.508" width="5000" height="4462.875"/>
+    </clipPath>
+    <g clip-path="url(#_clip1)">
+      <g id="Logo" transform="matrix(2.605249,0,0,2.605249,-4012.12257,-394.45771)">
+        <g id="Audio-wave" serif:id="Audio wave">
+          <g id="wave-1" transform="matrix(1.102158,0,0,2.446791,-19.533813,-1966.954561)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate attributeName="d" dur="1.9s" repeatCount="indefinite" values="M1730,1188L1730,1354;M1730,1142L1730,1400;M1730,1171L1730,1371;M1730,1188L1730,1354"/>
+            </path>
+          </g>
+          <g id="wave-2" transform="matrix(1.102158,0,0,1.691813,133.666187,-1007.376993)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate attributeName="d" dur="1.7s" begin="0.12s" repeatCount="indefinite" values="M1730,1160L1730,1382;M1730,1192L1730,1350;M1730,1138L1730,1404;M1730,1160L1730,1382"/>
+            </path>
+          </g>
+          <g id="wave-3" transform="matrix(1.102158,0,0,3.912662,286.866187,-3830.075971)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate attributeName="d" dur="2.1s" begin="0.24s" repeatCount="indefinite" values="M1730,1148L1730,1394;M1730,1196L1730,1346;M1730,1168L1730,1374;M1730,1148L1730,1394"/>
+            </path>
+          </g>
+          <g id="wave-4" transform="matrix(1.102158,0,0,5.064417,440.066187,-5293.957079)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate attributeName="d" dur="1.8s" begin="0.36s" repeatCount="indefinite" values="M1730,1198L1730,1344;M1730,1134L1730,1408;M1730,1166L1730,1376;M1730,1198L1730,1344"/>
+            </path>
+          </g>
+          <g id="wave-5" transform="matrix(1.102158,0,0,6.805827,593.266187,-7507.289281)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate
+                attributeName="d"
+                dur="1.85s"
+                begin="0.42s"
+                repeatCount="indefinite"
+                calcMode="spline"
+                keyTimes="0;0.38;0.72;1"
+                keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"
+                values="M1730,1168L1730,1374;M1730,1156L1730,1386;M1730,1176L1730,1366;M1730,1168L1730,1374"
+              />
+            </path>
+          </g>
+          <g id="wave-6" transform="matrix(-1.102158,0,0,5.064417,4559.933813,-5293.957079)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate attributeName="d" dur="1.8s" begin="0.36s" repeatCount="indefinite" values="M1730,1198L1730,1344;M1730,1134L1730,1408;M1730,1166L1730,1376;M1730,1198L1730,1344"/>
+            </path>
+          </g>
+          <g id="wave-7" transform="matrix(-1.102158,0,0,3.912662,4713.133813,-3830.075971)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate attributeName="d" dur="2.1s" begin="0.24s" repeatCount="indefinite" values="M1730,1148L1730,1394;M1730,1196L1730,1346;M1730,1168L1730,1374;M1730,1148L1730,1394"/>
+            </path>
+          </g>
+          <g id="wave-8" transform="matrix(-1.102158,0,0,1.691813,4866.333813,-1007.376993)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate attributeName="d" dur="1.7s" begin="0.12s" repeatCount="indefinite" values="M1730,1160L1730,1382;M1730,1192L1730,1350;M1730,1138L1730,1404;M1730,1160L1730,1382"/>
+            </path>
+          </g>
+          <g id="wave-9" transform="matrix(-1.102158,0,0,2.446791,5019.533813,-1966.954561)">
+            <path d="M1730,1171L1730,1371" style="fill:none;stroke:#fff;stroke-width:42px;">
+              <animate attributeName="d" dur="1.9s" repeatCount="indefinite" values="M1730,1188L1730,1354;M1730,1142L1730,1400;M1730,1171L1730,1371;M1730,1188L1730,1354"/>
+            </path>
+          </g>
+        </g>
+        <g id="Headphones" transform="matrix(0.868338,0,0,1,329.233865,0)">
+          <g transform="matrix(1.101382,0,0,1.101382,-365.797235,-128.078126)">
+            <path d="M1734,1154C1734,674.938 2122.938,286 2602,286C3081.062,286 3470,674.938 3470,1154" style="fill:none;stroke:#fff;stroke-width:68.1px;"/>
+          </g>
+          <g transform="matrix(0,0.613147,-0.519897,0,3950.699291,-1407.764846)">
+            <path d="M4530.836,1023.417L3727.164,1023.417C3686.44,987.085 3665,945.871 3665,903.917C3665,772.01 3872.911,664.917 4129,664.917C4385.089,664.917 4593,772.01 4593,903.917C4593,945.871 4571.56,987.085 4530.836,1023.417Z" style="fill:#fff;"/>
+          </g>
+          <g transform="matrix(0,0.613147,0.519897,0,1049.119951,-1407.764846)">
+            <path d="M4530.836,1023.417L3727.164,1023.417C3686.44,987.085 3665,945.871 3665,903.917C3665,772.01 3872.911,664.917 4129,664.917C4385.089,664.917 4593,772.01 4593,903.917C4593,945.871 4571.56,987.085 4530.836,1023.417Z" style="fill:#fff;"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURORA | Sound You Can Feel</title>
+  <meta name="description"
+    content="AURORA is a bold mock headphone product site with animated sound waves, aurora colors, and moving product renders." />
+  <meta name="theme-color" content="#050507" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AURORA | Sound You Can Feel" />
+  <meta property="og:description"
+    content="A bold headphone concept site with animated sound waves, aurora colors, and moving product renders." />
+  <meta property="og:image" content="assets/aurora-headphones-rendering.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AURORA | Sound You Can Feel" />
+  <meta name="twitter:description"
+    content="A bold headphone concept site with animated sound waves, aurora colors, and moving product renders." />
+  <meta name="twitter:image" content="assets/aurora-headphones-rendering.png" />
+  <link rel="icon" href="assets/logos/aurora-logo-no-text-white-wave-animated.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Space+Grotesk:wght@700&display=swap"
+    rel="stylesheet" />
+  <link rel="modulepreload" href="vendor/three.module.js" />
+  <link rel="modulepreload" href="vendor/GLTFLoader.js" />
+  <link rel="modulepreload" href="vendor/BufferGeometryUtils.js" />
+  <link rel="modulepreload" href="vendor/gsap.js" />
+  <link rel="modulepreload" href="vendor/ScrollTrigger.js" />
+  <link rel="preload" href="assets/aurora-headphones-rendering.png" as="image" />
+  <link rel="preload" href="public/models/headphones.glb?v=7" as="fetch" type="model/gltf-binary" crossorigin />
+  <link rel="stylesheet" href="styles.css?v=aurora-annotations-pass-1" />
+  <script src="script.js?v=aurora-annotations-pass-1" type="module"></script>
+  <noscript>
+    <style>
+      .loading-screen {
+        display: none !important;
+      }
+    </style>
+  </noscript>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "AURORA ONE",
+      "brand": {
+        "@type": "Brand",
+        "name": "AURORA"
+      },
+      "description": "A mock headphone concept designed around immersive sound, adaptive listening, and lightweight comfort.",
+      "image": "assets/aurora-headphones-rendering.png",
+      "category": "Headphones"
+    }
+  </script>
+</head>
+
+<body>
+  <!-- ================================
+  LOADING SCREEN
+  ================================ -->
+  <div class="loading-screen" id="loading-screen" aria-label="AURORA loading screen" role="status">
+    <div class="loading-content">
+      <div class="loading-mark">
+        <img src="assets/logos/aurora-logo-no-text-white-wave-animated.svg" alt="AURORA logo" />
+      </div>
+      <p>Loading AURORA</p>
+      <div class="loading-bar" aria-hidden="true">
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+  NAVIGATION
+  ================================ -->
+  <header class="site-header" aria-label="AURORA header">
+    <a class="brand-mark" href="#top" aria-label="AURORA home">
+      <img class="animated-logo" src="assets/logos/aurora-logo-no-text-white-wave-animated.svg"
+        alt="AURORA animated headphone logo" />
+    </a>
+
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#about">About</a>
+      <a href="#sound">Sound</a>
+      <a href="#design">Design</a>
+      <a href="#waitlist">Waitlist</a>
+    </nav>
+  </header>
+
+  <!-- ================================
+  HERO 3D MODEL LAYER
+  ================================ -->
+  <div class="model-stage" id="model-stage" role="img" aria-label="3D rendering of AURORA ONE headphones">
+    <canvas id="headphones-canvas" aria-hidden="true"></canvas>
+    <img class="model-fallback-image" data-src="assets/aurora-headphones-rendering.png" alt="" />
+  </div>
+
+  <main id="top">
+    <!-- ================================
+    HERO SECTION
+    ================================ -->
+    <section class="hero section-observe" aria-labelledby="hero-title">
+      <div class="aurora-curtain" aria-hidden="true"></div>
+
+      <div class="hero-copy">
+        <h1 id="hero-title" class="brand-word brand-word-layered" aria-label="AURORA">
+          <img class="brand-word-image brand-word-back" src="assets/logos/aurora-text-only-white.svg" alt=""
+            aria-hidden="true" />
+
+        </h1>
+        <p class="tagline">Sound you can feel.</p>
+        <a class="button button-primary" href="#waitlist" role="button">
+          <span>NOTIFY ME</span>
+          <span class="button-icon" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <a class="scroll-cue" href="#about" aria-label="Scroll to About">
+        <span class="scroll-cue-text">Scroll</span>
+        <span class="scroll-cue-arrow" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <div class="lower-page">
+      <!-- ================================
+      ABOUT SECTION
+      ================================ -->
+      <section id="about" class="about-section">
+        <div class="about-copy about-text-observe">
+          <p class="section-kicker">About AURORA</p>
+          <h2>Sound so vivid you can hear colors.</h2>
+          <p>
+            AURORA was created for people who want sound so immersive it pulls them out of reality and into a world of
+            their own.
+          </p>
+          <p>
+            The goal was to build headphones that make listening feel effortless, personal, and fully connected to
+            whatever moment you’re in. Not overcomplicated. Not overloaded. Just a better way to move through your day
+            with sound that feels close, clear, and completely your own.
+          </p>
+        </div>
+
+        <div class="about-visual" role="img" aria-label="Animated AURORA ONE headphone rendering">
+          <div class="signal-ring signal-ring-one"></div>
+          <div class="signal-ring signal-ring-two"></div>
+          <div class="about-product-circle" id="about-product-target">
+            <canvas id="about-wave-ring" aria-hidden="true"></canvas>
+            <canvas id="about-headphones-canvas" aria-hidden="true"></canvas>
+            <img class="model-fallback-image" data-src="assets/aurora-headphones-rendering.png" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================
+      SOUND SECTION
+      ================================ -->
+      <section id="sound" class="sound-section section-observe" aria-labelledby="sound-title">
+        <div class="section-heading">
+          <p class="section-kicker">Sound</p>
+          <h2 id="sound-title">Bass you feel. Detail you can trace.</h2>
+          <p>
+            Dynamic drivers, noise control, and adjustable EQ keep every track
+            close, spacious, and personal.
+          </p>
+        </div>
+
+        <div class="wave-panel" aria-label="Animated aurora soundwave visualization">
+          <canvas id="sound-wave" width="1180" height="220" aria-hidden="true"></canvas>
+        </div>
+
+        <div class="sound-features" aria-label="Sound features">
+          <article class="feature-card sound-card-observe">
+            <!-- Strong Bass icon: tilted bass driver with vibration arcs. -->
+            <svg class="bass-icon" viewBox="0 0 76 64" aria-hidden="true">
+              <defs>
+                <mask id="bass-cone-hole" maskUnits="userSpaceOnUse">
+                  <rect width="76" height="64" fill="white" />
+                  <ellipse cx="27" cy="36" rx="9.8" ry="13.4" fill="black" />
+                </mask>
+              </defs>
+              <g class="bass-driver" transform="rotate(-14 27 36)">
+                <ellipse class="bass-cone-fill" cx="27" cy="36" rx="15" ry="20" mask="url(#bass-cone-hole)" />
+                <ellipse class="bass-cone-fill" cx="27" cy="36" rx="6.2" ry="8.8" />
+                <ellipse class="bass-cone-rim" cx="27" cy="36" rx="19" ry="24" />
+              </g>
+              <g class="bass-vibration-group" transform="translate(0 -4) rotate(14 27 36)">
+                <path class="bass-vibration" d="M50 12c9.5 6 15 15 17 27" />
+                <path class="bass-vibration" d="M45 19c6.8 4.5 10.8 11 12.2 19" />
+              </g>
+
+            </svg>
+            <div>
+              <h3>Strong Bass</h3>
+              <p>Feel every beat with powerful, clean lows.</p>
+            </div>
+          </article>
+
+          <article class="feature-card sound-card-observe">
+            <!-- Crystal Clarity icon: faceted crystal line drawing. -->
+            <svg class="crystal-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M17 11h30l10 15-25 31L7 26l10-15Z" />
+              <path d="M7 26h50" />
+              <path d="M17 11l8 15 7-15 7 15 8-15" />
+              <path d="M25 26l7 31 7-31" />
+              <path d="M17 11L7 26" />
+              <path d="M47 11l10 15" />
+            </svg>
+            <div>
+              <h3>Crystal Clarity</h3>
+              <p>Hear every pitch with undeniable precision.</p>
+            </div>
+          </article>
+
+          <article class="feature-card sound-card-observe">
+            <!-- Noise Cancellation icon: listener shielded by a sound-canceling arc. -->
+            <svg class="noise-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path class="noise-arc" d="M12 30a20 20 0 0 1 40 0" />
+              <circle class="noise-head" cx="32" cy="30" r="10" />
+              <path class="noise-shoulders" d="M16 55c1.8-9.6 8-15.4 16-15.4S46.2 45.4 48 55H16Z" />
+            </svg>
+            <div>
+              <h3>Noise Cancellation</h3>
+              <p>Reduce distractions so you can focus.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================================
+      DESIGN SECTION
+      ================================ -->
+      <section id="design" class="design-section section-observe" aria-labelledby="design-title">
+        <div class="design-left">
+          <div class="design-copy">
+            <p class="section-kicker">Design</p>
+            <h2 id="design-title">Designed for comfort while you listen.</h2>
+            <p>
+              Soft-touch materials, pressure-relieving cushions, and sweat-repellent finishes give AURORA a secure,
+              comfortable fit that holds up through long listening sessions, daily movement, and high-energy workouts.
+            </p>
+            <div class="design-battery-feature" aria-label="40-hour battery feature">
+              <div class="battery-orbit" aria-hidden="true">
+                <svg class="battery-icon" viewBox="0 0 55 55" focusable="false">
+                  <rect class="battery-shell" x="8" y="18" width="36" height="20" rx="4" />
+                  <path class="battery-terminal" d="M45 24h4v8h-4" />
+                  <path class="battery-bolt" d="M27 12 18 30h9l-3 13 12-21h-9l3-10Z" />
+                </svg>
+              </div>
+              <div class="battery-callout" aria-hidden="true"></div>
+              <div class="battery-copy">
+                <p class="battery-label">40-HOUR BATTERY</p>
+                <h3>Long Battery Life</h3>
+                <p>Charges from 0% to 100% within one hour with our specialized charger.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="design-cards" aria-label="Design features">
+          <article class="mini-card mini-card-with-icon design-card-observe">
+            <svg class="feather-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M11 54 43 19" />
+              <path d="M17 48c-4-14 6-28 18-36 8-5 16-8 20-5 4 5 0 17-7 27-8 12-20 22-31 14Z" />
+              <path d="M21 35c0-6 3-11 8-14" />
+              <path d="M39 33c6 0 10-2 13-6" />
+            </svg>
+            <div>
+              <h3>Lightweight Material</h3>
+              <p>Comfort without compromise.</p>
+            </div>
+          </article>
+          <article class="mini-card mini-card-with-icon design-card-observe">
+            <svg class="build-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path class="build-weight"
+                d="M20 22h24c4 0 7.3 2.8 8.1 6.7l5.4 24.2C58.8 58.7 54.4 64 48.5 64h-33C9.6 64 5.2 58.7 6.5 52.9l5.4-24.2C12.7 24.8 16 22 20 22Z" />
+              <circle class="build-ring" cx="32" cy="18" r="13" />
+            </svg>
+            <div>
+              <h3>Strong Build</h3>
+              <p>A design that is built to last.</p>
+            </div>
+          </article>
+          <article class="mini-card mini-card-control design-card-observe">
+            <svg class="control-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M16 6v52" />
+              <path d="M32 6v52" />
+              <path d="M48 6v52" />
+              <circle cx="16" cy="24" r="8" />
+              <circle cx="32" cy="38" r="8" />
+              <circle cx="48" cy="24" r="8" />
+            </svg>
+            <div>
+              <h3>Intuitive Control</h3>
+              <p>Everything at your fingertips.</p>
+            </div>
+          </article>
+          <article class="mini-card mini-card-with-icon design-card-observe">
+            <svg class="balance-icon" viewBox="6 7 52 50" aria-hidden="true">
+              <path d="M32 12v40" />
+              <path d="M20 52h24" />
+              <path d="M14 20h36" />
+              <path d="M20 20 10 40h20L20 20Z" />
+              <path d="M44 20 34 40h20L44 20Z" />
+              <path d="M10 40c2 5 18 5 20 0" />
+              <path d="M34 40c2 5 18 5 20 0" />
+            </svg>
+            <div>
+              <h3>Balanced comfort</h3>
+              <p>Engineered clamping for natural stability.</p>
+            </div>
+          </article>
+        </div>
+
+        <figure class="detail-image detail-image-closeup">
+          <canvas class="design-model-canvas" data-design-view="ear" role="img"
+            aria-label="3D close-up of the AURORA ONE ear cushion"></canvas>
+          <figcaption>Uniquely striped ear cushions with a slow-rebound memory foam core and soft-touch outer layer,
+            built to cushion every hour of listening.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ================================
+      WAITLIST SECTION
+      ================================ -->
+      <section id="waitlist" class="waitlist-section section-observe" aria-labelledby="waitlist-title">
+        <div class="waitlist-copy">
+          <h2 id="waitlist-title">Join the waitlist.</h2>
+          <p>Be the first to experience AURORA.</p>
+        </div>
+
+        <form class="waitlist-form" id="waitlist-form">
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email"
+            aria-describedby="waitlist-note form-message" required />
+          <span class="waitlist-success-text" role="status" aria-live="polite"></span>
+          <button type="submit" aria-label="Join the waitlist" title="Join the waitlist">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </form>
+        <p class="waitlist-note" id="waitlist-note">This is a mock concept product site. This email feature is not
+          functional.</p>
+        <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+        <a class="waitlist-logo-link" href="#top" aria-label="AURORA home">
+          <img src="assets/logos/aurora-logo-white-static.svg" alt="AURORA" />
+        </a>
+      </section>
+
+      <!-- ================================
+      FOOTER
+      ================================ -->
+      <!-- Footer is a slim AURORA status bar instead of a standard copyright block. -->
+      <footer class="site-footer" aria-label="AURORA site status footer">
+        <div class="footer-identity">
+          <span>AURORA AUDIO IS A MOCK CONCEPT PRODUCT SITE.</span>
+          <span>Designed &amp; developed by Carly Peterson.</span>
+        </div>
+        <div class="footer-status" aria-label="Signal active status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>STATUS: ACTIVE</span>
+          <span>&copy; 2026 Carly Peterson</span>
+        </div>
+      </footer>
+    </div>
+  </main>
+</body>
+
+</html>
