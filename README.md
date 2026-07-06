@@ -1,10 +1,6 @@
 # AURORA Mock Site
 
-AURORA is a static concept website for a futuristic headphone brand. This project was created as a portfolio piece to explore interactive product presentation, scroll-based animation, and 3D web design using plain HTML, CSS, JavaScript, Three.js, GSAP, and a GLB model.
-
-## Live Site
-
-Coming soon.
+AURORA is a static concept website for a futuristic headphone brand. This project was created as a portfolio piece to explore interactive product presentation, scroll-based animation, and 3D web design using HTML, CSS, JavaScript, Three.js, GSAP, and a GLB model.
 
 ## Built With
 
@@ -12,7 +8,7 @@ Coming soon.
 - CSS
 - JavaScript
 - Three.js
-- GSAP (GreenSock Animation Platform)
+- GSAP
 - GLB 3D model
 - Google Fonts
 
@@ -28,6 +24,7 @@ Coming soon.
 
 ## Project Structure
 
+```text
 AURORA Mock Site/
 ├── index.html
 ├── styles.css
@@ -37,24 +34,25 @@ AURORA Mock Site/
 │   └── models/
 │       └── headphones.glb
 └── vendor/
+```
 
-## Required Runtime Files
+## Core Files
 
-The live site depends on the following root files:
+The live site is powered by the following root files:
 
 - `index.html`
 - `styles.css`
 - `script.js`
 
-The live site also requires these folders:
+It also uses the following project folders:
 
 - `assets/`
 - `public/`
 - `vendor/`
 
-## Required Assets
+## Referenced Assets
 
-These files are referenced by the live page:
+The page references the following assets:
 
 - `assets/aurora-headphones-rendering.png`
 - `assets/logos/aurora-logo-no-text-white-wave-animated.svg`
@@ -67,43 +65,42 @@ These files are referenced by the live page:
 - `vendor/gsap.js`
 - `vendor/ScrollTrigger.js`
 
-## Files Not Required for Deployment
+## Additional Source Files
 
-These are source, archive, or local-only files and are not required for the live site:
+The project also contains source, archive, and local-only files that are not part of the live site experience, including:
 
 - `.DS_Store`
 - `Open Aurora Site.command`
 - `assets/source/`
 - `assets/blend-preview/`
-- unused files inside `assets/logos/`
+- unused logo variations inside `assets/logos/`
 - backup or older GLB files inside `public/models/`
 
-## Vercel Deployment Notes
+## Deployment
 
-This is a static site. It should be deployed from the project root.
+AURORA is a static site and is structured to deploy from the project root.
 
-Recommended Vercel settings:
+The current model path in `script.js` is:
 
-- Framework Preset: Other
-- Build Command: Leave blank
-- Output Directory: Leave blank
-- Install Command: Leave blank
+```js
+/public/models/headphones.glb?v=7
+```
 
-The model URL in `script.js` is:
-
-`/public/models/headphones.glb?v=7`
-
-Because of that, the `public` folder needs to remain at the project root for the model path to resolve correctly.
+The `public` folder remains at the project root so the 3D model path resolves correctly on deployment.
 
 ## Local Preview
 
-From the project folder, run:
+A local preview can be started with:
 
-`python3 -m http.server 8000`
+```bash
+python3 -m http.server 8000
+```
 
-Then open:
+Then viewed at:
 
-`http://127.0.0.1:8000/`
+```text
+http://127.0.0.1:8000/
+```
 
 ## Project Purpose
 
