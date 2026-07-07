@@ -1,0 +1,32 @@
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# Local launcher script; not needed on GitHub or Vercel
+Open Aurora Site.command
+*.command
+
+# Blender/source/archive files; not needed by the live static site
+assets/source/
+assets/blend-preview/
+*.blend
+*.blend1
+
+# Unused top-level logo asset
+assets/aurora-logo-no-text-black.svg
+
+# Unused logo variants. Keep only the logo files referenced by the live site.
+assets/logos/aurora-logo-black-animated.svg
+assets/logos/aurora-logo-black-static.svg
+assets/logos/aurora-logo-no-text-black.svg
+assets/logos/aurora-logo-no-text-white.svg
+assets/logos/aurora-logo-white-animated.svg
+assets/logos/aurora-text-only-white.png
+
+# Old GLB exports/backups. Keep public/models/headphones.glb.
+public/models/headphones-with-studio-backup.glb
+public/models/headphones.pre-*.glb
+
+# Additional 3D source exports
+*.fbx
+*.obj

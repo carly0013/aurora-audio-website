@@ -53,7 +53,7 @@ let mobileFallback = window.matchMedia("(max-width: 760px)").matches;
 let hasHiddenLoadingScreen = false;
 let pageIsVisible = !document.hidden;
 
-const MODEL_URL = "/public/models/headphones.glb?v=7";
+const MODEL_URL = "./public/models/headphones.glb?v=7";
 const THREE_MODULE_URL = "./vendor/three.module.js";
 const GLTF_LOADER_MODULE_URL = "./vendor/GLTFLoader.js";
 const GSAP_MODULE_URL = "./vendor/gsap.js";
