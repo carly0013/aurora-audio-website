@@ -10,6 +10,7 @@ const fallbackImage = document.querySelector(".model-fallback-image");
 const fallbackImages = [...document.querySelectorAll(".model-fallback-image")];
 const aboutProductTarget = document.querySelector("#about-product-target");
 const heroSection = document.querySelector(".hero");
+const lowerPage = document.querySelector(".lower-page");
 const loadingScreen = document.querySelector("#loading-screen");
 const soundCanvas = document.querySelector("#sound-wave");
 const waitlistForm = document.querySelector("#waitlist-form");
@@ -47,9 +48,9 @@ let lastSoundWaveFrame = 0;
 let soundBoomEnergy = 0;
 let waitlistSuccessTimeout = null;
 let hasDismissedScrollCue = false;
+let mobileNavScrolled = false;
 let fallbackScrollHandler = null;
 let reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-let mobileFallback = window.matchMedia("(max-width: 760px)").matches;
 let hasHiddenLoadingScreen = false;
 let pageIsVisible = !document.hidden;
 
@@ -75,6 +76,18 @@ const MODEL_SCROLL = {
     // Starting rotation. Values are radians, not degrees.
     // More front-facing so the headband creates a centered arc around the text.
     rotation: { x: -0.1, y: 0, z: 0 }
+  },
+
+  mobileStart: {
+    viewport: { x: 0.455, y: 0.49 },
+    positionOffset: { x: 0, y: -0.02, z: 0 },
+    scale: 0.78
+  },
+
+  mobileSmallStart: {
+    viewport: { x: 0.455, y: 0.49 },
+    positionOffset: { x: 0, y: -0.02, z: 0 },
+    scale: 0.64
   },
 
   end: {
@@ -404,7 +417,7 @@ function drawSoundWave() {
 }
 
 /* ================================
-FALLBACK / MOBILE / REDUCED MOTION
+FALLBACK / REDUCED MOTION
 ================================ */
 function updateFallbackPosition() {
   if (!modelStage || !fallbackImage) return;
@@ -451,13 +464,25 @@ function activateFallback() {
 NAVIGATION / SCROLL STATE
 ================================ */
 function handlePageScroll() {
-  if (!hasDismissedScrollCue && window.scrollY > 60) {
+  if (!hasDismissedScrollCue && window.scrollY > 20) {
     hasDismissedScrollCue = true;
     document.body.classList.add("has-scrolled");
   }
 
   const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
-  const navScrolled = window.scrollY > heroHeight * 0.75;
+  let navScrolled = window.scrollY > heroHeight * 0.75;
+
+  if (window.innerWidth <= 760 && lowerPage) {
+    const aboutTop = lowerPage.getBoundingClientRect().top;
+
+    if (!mobileNavScrolled && aboutTop <= 0) {
+      mobileNavScrolled = true;
+    } else if (mobileNavScrolled && aboutTop > 20) {
+      mobileNavScrolled = false;
+    }
+
+    navScrolled = mobileNavScrolled;
+  }
 
   document.body.classList.toggle("nav-scrolled", navScrolled);
   document.body.classList.toggle("hero-passed", window.scrollY > window.innerHeight * 0.72);
@@ -484,8 +509,38 @@ function initFontReadyState() {
   });
 }
 
+function deactivateFallback() {
+  if (!modelStage) return;
+
+  modelStage.classList.remove("is-fallback");
+
+  if (fallbackScrollHandler) {
+    window.removeEventListener("scroll", fallbackScrollHandler);
+    window.removeEventListener("resize", fallbackScrollHandler);
+    fallbackScrollHandler = null;
+  }
+}
+
 function shouldUseFallback() {
-  return mobileFallback || reducedMotion;
+  return reducedMotion;
+}
+
+function getHeroStartState() {
+  if (window.innerWidth > 760) return MODEL_SCROLL.start;
+
+  const mobileStart = window.innerWidth <= 480
+    ? MODEL_SCROLL.mobileSmallStart
+    : MODEL_SCROLL.mobileStart;
+
+  return {
+    ...MODEL_SCROLL.start,
+    ...mobileStart,
+    positionOffset: {
+      ...MODEL_SCROLL.start.positionOffset,
+      ...mobileStart.positionOffset
+    },
+    rotation: MODEL_SCROLL.start.rotation
+  };
 }
 
 function saveWaitlistEmail(email) {
@@ -565,11 +620,14 @@ async function initializeHeadphoneModel() {
     }
 
     function resizeHeroRenderer() {
-      const width = Math.max(1, window.innerWidth);
-      const height = Math.max(1, window.innerHeight);
+      const stageRect = modelStage.getBoundingClientRect();
+      const width = Math.max(1, Math.floor(stageRect.width || window.innerWidth));
+      const height = Math.max(1, Math.floor(stageRect.height || window.innerHeight));
       const overscan = getHeroCanvasOverscan();
 
       modelStage.style.setProperty("--hero-canvas-overscan", `${overscan}px`);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
       // View offset keeps the visible model aligned while the actual render target is taller.
       camera.setViewOffset(width, height, 0, -overscan, width, height + overscan * 2);
       renderer.setSize(width, height + overscan * 2, false);
@@ -763,7 +821,8 @@ async function initializeHeadphoneModel() {
     });
 
     modelGroup.add(model);
-    const shouldPlayHeroIntro = ENABLE_HERO_INTRO && !reducedMotion && !mobileFallback && window.scrollY < 4;
+    deactivateFallback();
+    const shouldPlayHeroIntro = ENABLE_HERO_INTRO && !reducedMotion && window.scrollY < 4;
     let heroIntroIsActive = shouldPlayHeroIntro;
     let heroIntroHasCompleted = !shouldPlayHeroIntro;
     let heroFloatReady = false;
@@ -1047,11 +1106,29 @@ async function initializeHeadphoneModel() {
         const windowHeight = window.innerHeight;
 
         // Progress starts when the circle enters the viewport and finishes near center.
-        const progress = clamp(
+        let progress = clamp(
           1 - rect.top / (windowHeight * 0.78),
           0,
           1
         );
+
+        if (window.innerWidth <= 760) {
+          const aboutSection = document.querySelector("#about");
+
+          if (aboutSection) {
+            const headerOffset = getHeaderOffset();
+            const scrollY = window.scrollY;
+            const aboutTop = scrollY + aboutSection.getBoundingClientRect().top;
+            const targetTop = scrollY + rect.top;
+            const aboutAnchorScroll = Math.max(0, aboutTop - headerOffset);
+            const targetEntryScroll = Math.max(0, targetTop - windowHeight + headerOffset);
+            const mobileProgress = aboutAnchorScroll <= targetEntryScroll
+              ? (scrollY >= aboutAnchorScroll ? 1 : 0)
+              : progressBetween(scrollY, targetEntryScroll, aboutAnchorScroll);
+
+            progress = Math.max(progress, mobileProgress);
+          }
+        }
 
         const eased = aboutEntranceComplete ? 1 : smoothstep(progress);
         const settled = eased > 0.82 ? 1 : eased;
@@ -1292,11 +1369,63 @@ async function initializeHeadphoneModel() {
     }
 
     let modelScrollProgress = 0;
+    let modelScrollTrigger = null;
+
+    function getHeaderOffset() {
+      const header = document.querySelector(".site-header");
+      if (!header) return 0;
+
+      return Math.ceil(header.getBoundingClientRect().height + 12);
+    }
+
+    function getMobileAboutAnchorProgress() {
+      if (window.innerWidth > 760) return MODEL_PHASES.circleRotationStart;
+
+      const aboutSection = document.querySelector("#about");
+      if (!aboutSection || !aboutProductTarget) return MODEL_PHASES.circleRotationStart;
+
+      const heroHeight = heroSection ? heroSection.getBoundingClientRect().height : window.innerHeight;
+      const headerOffset = getHeaderOffset();
+      const aboutTop = window.scrollY + aboutSection.getBoundingClientRect().top;
+      const targetRect = aboutProductTarget.getBoundingClientRect();
+      const targetTop = window.scrollY + targetRect.top;
+      const normalAboutAnchor = Math.max(0, aboutTop - headerOffset);
+      const targetReadyAnchor = Math.max(0, targetTop - heroHeight + headerOffset);
+      const aboutCenteredScroll = Math.min(normalAboutAnchor, targetReadyAnchor || normalAboutAnchor);
+      const timelineStart = Number.isFinite(modelScrollTrigger?.start) ? modelScrollTrigger.start : 0;
+      const timelineDistance = Number.isFinite(modelScrollTrigger?.end - modelScrollTrigger?.start)
+        ? modelScrollTrigger.end - modelScrollTrigger.start
+        : MODEL_SCROLL.distance;
+
+      return clamp((aboutCenteredScroll - timelineStart) / timelineDistance, 0.01, 1);
+    }
+
+    function getModelAnimationProgress(rawProgress) {
+      if (window.innerWidth > 760) return rawProgress;
+
+      const aboutAnchorProgress = getMobileAboutAnchorProgress();
+
+      if (aboutAnchorProgress >= MODEL_PHASES.circleRotationStart) {
+        return rawProgress;
+      }
+
+      if (rawProgress <= aboutAnchorProgress) {
+        return clamp((rawProgress / aboutAnchorProgress) * MODEL_PHASES.circleRotationStart);
+      }
+
+      return lerp(
+        MODEL_PHASES.circleRotationStart,
+        1,
+        progressBetween(rawProgress, aboutAnchorProgress, 1)
+      );
+    }
 
     function applyModelState(progress) {
       const rawProgress = clamp(progress);
+      const animationProgress = getModelAnimationProgress(rawProgress);
       modelScrollProgress = rawProgress;
-      const { start, end, reentry } = MODEL_SCROLL;
+      const { end, reentry } = MODEL_SCROLL;
+      const start = getHeroStartState();
       const liveClip = getTargetCircleClip();
       const liveTarget = { x: liveClip.x, y: liveClip.y };
 
@@ -1313,11 +1442,11 @@ async function initializeHeadphoneModel() {
         y: endPosition.y + reentry.positionOffset.y,
         z: endPosition.z + reentry.positionOffset.z
       };
-      const heroExitProgress = smoothstep(progressBetween(rawProgress, MODEL_PHASES.heroExitStart, MODEL_PHASES.heroExitEnd));
-      const heroSpinProgress = smoothstep(progressBetween(rawProgress, 0.02, MODEL_PHASES.reentryStart));
+      const heroExitProgress = smoothstep(progressBetween(animationProgress, MODEL_PHASES.heroExitStart, MODEL_PHASES.heroExitEnd));
+      const heroSpinProgress = smoothstep(progressBetween(animationProgress, 0.02, MODEL_PHASES.reentryStart));
       const reentryProgress = smoothstep(
         progressBetween(
-          rawProgress,
+          animationProgress,
           MODEL_PHASES.reentryStart,
           MODEL_PHASES.circleRotationStart
         )
@@ -1326,7 +1455,7 @@ async function initializeHeadphoneModel() {
       let currentScale;
       let currentRotation;
 
-      if (rawProgress < MODEL_PHASES.reentryStart) {
+      if (animationProgress < MODEL_PHASES.reentryStart) {
         currentPosition = {
           x: startPosition.x,
           y: lerp(startPosition.y, startPosition.y - 1.4, heroExitProgress),
@@ -1367,7 +1496,7 @@ async function initializeHeadphoneModel() {
         currentRotation.z
       );
 
-      const isCircleClipped = rawProgress >= MODEL_PHASES.reentryStart;
+      const isCircleClipped = animationProgress >= MODEL_PHASES.reentryStart;
 
       // CSS variables drive the circular clip that hides/reveals the fixed hero canvas.
       modelStage.style.setProperty("--model-stage-visibility", "visible");
@@ -1389,7 +1518,7 @@ async function initializeHeadphoneModel() {
 
     applyModelState(0);
 
-    const modelScrollTrigger = ScrollTrigger.create({
+    modelScrollTrigger = ScrollTrigger.create({
       trigger: ".hero",
       start: "top top",
       end: () => `+=${MODEL_SCROLL.distance}`,
@@ -1461,6 +1590,31 @@ async function initializeHeadphoneModel() {
       modelStage.style.setProperty("--model-stage-visibility", heroModelShouldRender ? "visible" : "hidden");
     }
 
+    function syncModelRenderState() {
+      ScrollTrigger.update();
+      applyModelState(modelScrollTrigger.progress);
+      updateHeroRenderActivity();
+      renderHeroModel();
+    }
+
+    function syncModelAfterAnchorNavigation() {
+      if (window.innerWidth > 760) return;
+
+      requestAnimationFrame(() => {
+        syncModelRenderState();
+      });
+
+      if ("onscrollend" in window) {
+        window.addEventListener("scrollend", () => {
+          requestAnimationFrame(syncModelRenderState);
+        }, { once: true });
+      } else {
+        window.setTimeout(() => {
+          requestAnimationFrame(syncModelRenderState);
+        }, reducedMotion ? 0 : 720);
+      }
+    }
+
     function syncModelToCurrentScroll() {
       if (scrollUpdateQueued) return;
 
@@ -1468,9 +1622,7 @@ async function initializeHeadphoneModel() {
       scrollUpdateQueued = true;
       requestAnimationFrame(() => {
         scrollUpdateQueued = false;
-        applyModelState(modelScrollTrigger.progress);
-        updateHeroRenderActivity();
-        renderHeroModel();
+        syncModelRenderState();
       });
     }
 
@@ -1484,6 +1636,9 @@ async function initializeHeadphoneModel() {
 
     window.addEventListener("resize", resizeRenderer);
     window.addEventListener("scroll", syncModelToCurrentScroll, { passive: true });
+    document.querySelectorAll('a[href="#about"]').forEach((link) => {
+      link.addEventListener("click", syncModelAfterAnchorNavigation);
+    });
     updateHeroRenderActivity();
     requestAnimationFrame(() => {
       applyModelState(modelScrollTrigger.progress);
@@ -1581,17 +1736,9 @@ if ("IntersectionObserver" in window) {
 /* ================================
 FALLBACK / MEDIA QUERY LISTENERS
 ================================ */
-// These listeners switch to the static image fallback if motion/device conditions change after load.
+// This listener switches to the static image fallback if reduced-motion preferences change after load.
 window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (event) => {
   reducedMotion = event.matches;
-
-  if (event.matches) {
-    activateFallback();
-  }
-});
-
-window.matchMedia("(max-width: 760px)").addEventListener("change", (event) => {
-  mobileFallback = event.matches;
 
   if (event.matches) {
     activateFallback();

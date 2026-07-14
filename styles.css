@@ -2578,6 +2578,45 @@ RESPONSIVE STYLES
   }
 }
 
+@media (max-width: 760px) {
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .site-nav {
+    gap: 16px;
+  }
+
+  .site-nav a::before,
+  body.nav-scrolled .site-nav a::before {
+    bottom: -7px;
+    height: 2px;
+    box-shadow:
+      0 0 8px rgba(159, 255, 234, 0.54),
+      0 0 12px rgba(255, 107, 214, 0.34);
+  }
+
+  .lower-page {
+    margin-top: 0;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    z-index: 20;
+    transform: translateX(-50%);
+  }
+
+  .has-scrolled .scroll-cue {
+    transform: translate(-50%, 10px);
+  }
+}
+
 /* ================================
 REDUCED MOTION
 ================================ */
